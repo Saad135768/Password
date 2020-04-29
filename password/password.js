@@ -5,31 +5,16 @@ const h1 = document.querySelector('#password-h1');
 const h2 = document.querySelector('#password-h2');
 const h3 = document.querySelector('#password-h3');
 const h4 = document.querySelector('#password-h4');
+const main = document.querySelector('main');
 let sum = '';
 
-//-----
-let attempts = 4;
-let attempt = () => {
-  if (attempts <= 0) {
-    h4.innerText = `You have to wait 5 mins . You are not authorized to proceed`;
-    buttons.forEach((btn) => btn.setAttribute('disabled', 'true'));
-    setTimeout(() => {
-      buttons.forEach((btn) => btn.removeAttribute('disabled'));
-      h4.innerText = ``;
-    }, 5000);
-  } else {
-    h4.innerText = `You have only ${attempts--} attempts`;
-  }
-};
-console.log(attempts);
 buttons.forEach((btn) => {
   btn.addEventListener('click', () => {
     sum += btn.value;
     h3.innerText = sum;
 
-    const password = 0000;
+    const password = 0000; // Your actual password
     if (sum.length === 4) {
-      sum.substr(4, 1);
       if (sum == password) {
         buttonsParent.classList.add('active');
         h1.innerText = 'Correct password';
@@ -37,6 +22,7 @@ buttons.forEach((btn) => {
         setTimeout(() => {
           h3.innerText = sum;
           div.remove();
+          main.style.visibility = 'visible';
         }, 1500);
       } else {
         attempt();
@@ -55,3 +41,18 @@ buttons.forEach((btn) => {
     }
   });
 });
+
+//-------- Number of attempts allowed for you to try
+let attempts = 4;
+let attempt = () => {
+  if (attempts <= 0) {
+    h4.innerText = `You have to wait 5 mins . You are not authorized to proceed`;
+    buttons.forEach((btn) => btn.setAttribute('disabled', 'true'));
+    setTimeout(() => {
+      buttons.forEach((btn) => btn.removeAttribute('disabled'));
+      h4.innerText = ``;
+    }, 5000);
+  } else {
+    h4.innerText = `You have only ${attempts--} attempts`;
+  }
+};
